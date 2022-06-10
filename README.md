@@ -12,7 +12,7 @@
 
 - Install the following tools
     - `bazelisk`: a bazel launcher. bazelisk will respect `.bazelrc` and `.bazelversion` settings.
-    - `docker`: if you want to launch a local remote cache using `buchgr/bazel-remote-cache`.
+    - `docker`: if you want to launch a local remote cache using `buchgr/bazel-remote-cache`.`
     
 ## Managing dependencies
 
@@ -32,8 +32,8 @@ We use `gazelle` to manage go dependencies. When you update `go.mod`, do `bz run
 
 - [x] Java
 - [x] Golang
-- Python
-- JavaScript/TypeScript
+- [ ] Python
+- [ ] JavaScript/TypeScript
 - [x] Building container image
 
 ## Build
