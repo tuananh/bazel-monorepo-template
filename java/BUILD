@@ -1,7 +1,5 @@
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
-load("@io_bazel_rules_docker//docker:docker.bzl", "docker_push")
-
-DOCKER_REGISTRY_URL = "docker.io"
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 
 java_image(
     name = "image",
@@ -9,11 +7,11 @@ java_image(
     runtime_deps = [],
 )
 
-docker_push(
+container_push(
     name = "push_image",
     image = ":image",
-    registry = DOCKER_REGISTRY_URL,
+    format = "OCI",
+    registry = "docker.io",
     repository = "tuananhorg/java_example",
-    stamp = "never",
-    tag = "{BUILD_TIMESTAMP}",
+    tag = "dev",
 )
