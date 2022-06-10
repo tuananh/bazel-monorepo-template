@@ -1,25 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"os"
+	"net/http"
 
-	"github.com/urfave/cli/v2"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	app := &cli.App{
-		Name:  "boom",
-		Usage: "make an explosive entrance",
-		Action: func(c *cli.Context) error {
-			fmt.Println("boom! I say!")
-			return nil
-		},
-	}
-
-	err := app.Run(os.Args)
-	if err != nil {
-		log.Fatal(err)
-	}
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+		})
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
