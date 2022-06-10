@@ -9,12 +9,12 @@ gazelle(
     prefix = "github.com/tuananh/bazel-monorepo-template",
 )
 
-# bz run //:gazelle-update-repos ./go
+# bz run //:gazelle-update-repos
 gazelle(
     name = "gazelle-update-repos",
     args = [
-        "-from_file=go.mod",
-        "-to_macro=deps.bzl%go_dependencies",
+        "-from_file=go/go.mod",
+        "-to_macro=3rdparty/go_workspace.bzl%go_dependencies",
         "-prune",
     ],
     command = "update-repos",

@@ -16,7 +16,9 @@ http_archive(
 )
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
 go_rules_dependencies()
+
 go_register_toolchains(version = "1.18.3")
 
 gazelle_version = "v0.23.0"
@@ -34,8 +36,10 @@ http_archive(
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 load("//3rdparty:go_workspace.bzl", "go_dependencies")
 
-gazelle_dependencies()
+# gazelle:repository_macro 3rdparty/go_workspace.bzl%go_dependencies
 go_dependencies()
+
+gazelle_dependencies()
 
 ########### JAVA SUPPORT ###########
 
@@ -79,6 +83,7 @@ maven_install(
 )
 
 load("@maven//:defs.bzl", "pinned_maven_install")
+
 pinned_maven_install()
 
 ########### SCALA SUPPORT ###########
@@ -111,6 +116,7 @@ scala_register_toolchains()
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
 
 scalatest_repositories()
+
 scalatest_toolchain()
 
 # Load dependencies managed by bazel-deps
@@ -155,12 +161,14 @@ yarn_install(
 )
 
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+
 install_bazel_dependencies()
 
 ########### DOCKER SUPPORT ###########
 
 # lock at this version because the latest 0.24.0 (as of June 10 2022) breaks rules_docker
 rules_docker_version = "0.22.0"
+
 http_archive(
     name = "io_bazel_rules_docker",
     sha256 = "59536e6ae64359b716ba9c46c39183403b01eabfbd57578e84398b4829ca499a",
@@ -168,13 +176,16 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v{0}/rules_docker-v{0}.tar.gz".format(rules_docker_version)],
 )
 
-load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories",)
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
+
 container_repositories()
 
-load("@io_bazel_rules_docker//java:image.bzl", _java_image_repos = "repositories",)
+load("@io_bazel_rules_docker//java:image.bzl", _java_image_repos = "repositories")
+
 _java_image_repos()
 
-load("@io_bazel_rules_docker//go:image.bzl", _go_image_repos = "repositories",)
+load("@io_bazel_rules_docker//go:image.bzl", _go_image_repos = "repositories")
+
 _go_image_repos()
 
 # buildifier BUILD file linter
@@ -196,5 +207,7 @@ http_archive(
 
 load("@linting_system//repositories:repositories.bzl", "repositories")
 load("@linting_system//repositories:go_repositories.bzl", "go_deps")
+
 repositories()
+
 go_deps()
