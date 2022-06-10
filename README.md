@@ -20,7 +20,14 @@
 
 We use `gazelle` to manage go dependencies. When you update `go.mod`, do `bz run //:gazelle-update-repos` to update [`3rdparty/go_workspace.bzl`](/3rdparty/go_workspace.bzl).
 
-The way it works is configured here in [`BUILD`](/BUILD) so tweak it if you need. `gazelle` use `go.mod` file via `-from_file` param, output to `go_dependencies()` section in `3rdparty/go_workspace.bzl` file.
+The way it works is configured here in [`BUILD`](/BUILD) so tweak it if you need. `gazelle` use `go.mod` file via `-from_file` param, output to `go_dependencies()` section in `3rdparty/go_workspace.bzl` file. Then we load to [`WORKSPACE`](/WORKSPACE) by this
+
+```
+load("//3rdparty:go_workspace.bzl", "go_dependencies")
+
+# gazelle:repository_macro 3rdparty/go_workspace.bzl%go_dependencies
+go_dependencies()
+```
 
 ```starlark
 # bz run //:gazelle-update-repos
