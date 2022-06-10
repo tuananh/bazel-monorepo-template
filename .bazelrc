@@ -1,0 +1,27 @@
+# remote cache
+build --remote_cache=http://localhost:9090
+
+# workaround for java_image require cpp toolchain
+build --incompatible_use_cc_configure_from_rules_cc
+build --toolchain_resolution_debug=@bazel_tools//tools/cpp:toolchain_type
+
+# python path
+build --python_path="/usr/local/bin/python3"
+
+# scala
+build --strategy=Scalac=worker
+test --strategy=Scalac=worker
+
+# try import linting.bazelrc
+try-import %workspace%/linting.bazelrc
+
+# Don't hide log output from a test execution, which is annoying UX on test failures.
+test --test_output=all
+
+# Restrict workers from reading files that aren't declared as inputs
+# Note that this uses a different sandboxing mechanism than the actions spawn:
+# https://github.com/bazelbuild/bazel/issues/6111
+build --worker_sandboxing
+
+# Local Disk Cache - https://docs.bazel.build/versions/master/remote-caching.html#disk-cache
+build --disk_cache=/tmp/finx-monorepo-example1-disk-cache/
