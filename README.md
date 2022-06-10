@@ -20,6 +20,21 @@
 
 We use `gazelle` to manage go dependencies. When you update `go.mod`, do `bz run //:gazelle-update-repos` to update [`3rdparty/go_workspace.bzl`](/3rdparty/go_workspace.bzl).
 
+The way it works is configured here in [`BUILD`](/BUILD) so tweak it if you need. `gazelle` use `go.mod` file via `-from_file` param, output to `go_dependencies()` section in `3rdparty/go_workspace.bzl` file.
+
+```starlark
+# bz run //:gazelle-update-repos
+gazelle(
+    name = "gazelle-update-repos",
+    args = [
+        "-from_file=go/go.mod",
+        "-to_macro=3rdparty/go_workspace.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
+)
+```
+
 ### Java
 
 - `rules_jvm_external` is used for java. The script is wrapped in [`tools/dependencies/jvm_dependencies.yaml`](tools/dependencies/jvm_dependencies.yaml)
