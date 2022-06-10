@@ -12,33 +12,29 @@
 
 - Install the following tools
     - `bazelisk`: a bazel launcher. bazelisk will respect `.bazelrc` and `.bazelversion` settings.
-    - `docker`: if you want to launch a local remote cache
+    - `docker`: if you want to launch a local remote cache using `buchgr/bazel-remote-cache`.
     
 ## Managing dependencies
 
-- `gazelle` for managing go deps and `rules_jvm_external` for java
+### Golang
 
-- For go, it's in [`3rdparty/go_workspace.bzl`](/3rdparty/go_workspace.bzl).
+We use `gazelle` to manage go dependencies. When you update `go.mod`, do `bz run //:gazelle-update-repos` to update [`3rdparty/go_workspace.bzl`](/3rdparty/go_workspace.bzl).
+
+### Java
+
+- `rules_jvm_external` is used for java. The script is wrapped in [`tools/dependencies/jvm_dependencies.yaml`](tools/dependencies/jvm_dependencies.yaml)
+
+### Python
 
 - For Python, it's in [`3rdparty/requirements.in`](/3rdparty/requirements.in) and run `bazel run //3rdparty:requirements.update`.
 
-- For Java, it's in [`tools/dependencies/jvm_dependencies.yaml`](tools/dependencies/jvm_dependencies.yaml)
-
-To update dependencies, do:
-
-```shell
-make ensure-java-dep
-make ensure-go-dep
-make ensure-python-dep
-```
-
 ## Supported languages/stack
 
-- Java
-- Golang
+- [x] Java
+- [x] Golang
 - Python
 - JavaScript/TypeScript
-- Building container image
+- [x] Building container image
 
 ## Build
 
