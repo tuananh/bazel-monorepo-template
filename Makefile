@@ -16,7 +16,7 @@ build-go: ## build //go
 
 .PHONY: build-java
 build-java: ## build //java
-	$(BAZEL) build //java:image
+	$(BAZEL) build //java:image --java_runtime_version=remotejdk_11
 
 .PHONY: ensure-go-dep
 ensure-go-dep: ## update go dependencies
