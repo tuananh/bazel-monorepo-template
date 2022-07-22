@@ -44,7 +44,7 @@ gazelle(
 
 ### Java
 
-- `rules_jvm_external` is used for java. The script is wrapped in [`tools/dependencies/jvm_dependencies.yaml`](tools/dependencies/jvm_dependencies.yaml)
+- `rules_jvm_external` is used for java. The script is wrapped in [`hack/dependencies/jvm_dependencies.yaml`](hack/dependencies/jvm_dependencies.yaml)
 
 ### Python
 

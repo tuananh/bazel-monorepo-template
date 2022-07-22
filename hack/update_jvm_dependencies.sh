@@ -21,10 +21,10 @@ fi
 
 WORKSPACE_FILEPATH="./3rdparty/jvm_workspace.bzl"
 TARGET_FILE_FILEPATH="3rdparty/target_file.bzl"
-DEPS_YAML_FILEPATH="./tools/dependencies/jvm_dependencies.yaml"
+DEPS_YAML_FILEPATH="./hack/dependencies/jvm_dependencies.yaml"
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-SCRIPT_LOCATION="${REPO_ROOT}/tools/"
+SCRIPT_LOCATION="${REPO_ROOT}/hack/"
 cd "${SCRIPT_LOCATION}"
 
 

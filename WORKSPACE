@@ -129,40 +129,48 @@ scala_deps()
 
 # PYTHON SUPPORT
 
-rules_python_version = "0.7.0"
+rules_python_version = "0.10.2"
 
 http_archive(
     name = "rules_python",
-    sha256 = "15f84594af9da06750ceb878abbf129241421e3abbd6e36893041188db67f2fb",
+    sha256 = "a3a6e99f497be089f81ec082882e40246bfd435f52f4e82f37e89449b04573f6",
     strip_prefix = "rules_python-{}".format(rules_python_version),
     url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/{}.tar.gz".format(rules_python_version),
 )
 
+# load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+
+# python_register_toolchains(
+#     name = "python3_9",
+#     python_version = "3.9",
+# )
+
+
 ########### TYPESCRIPT / NODEJS SUPPORT ###########
 
-rules_nodejs_version = "1.7.0"
+# rules_nodejs_version = "1.7.0"
 
-http_archive(
-    name = "build_bazel_rules_nodejs",
-    sha256 = "84abf7ac4234a70924628baa9a73a5a5cbad944c4358cf9abdb4aab29c9a5b77",
-    urls = [
-        "https://github.com/bazelbuild/rules_nodejs/releases/download/{version}/rules_nodejs-{version}.tar.gz".format(
-            version = rules_nodejs_version,
-        ),
-    ],
-)
+# http_archive(
+#     name = "build_bazel_rules_nodejs",
+#     sha256 = "84abf7ac4234a70924628baa9a73a5a5cbad944c4358cf9abdb4aab29c9a5b77",
+#     urls = [
+#         "https://github.com/bazelbuild/rules_nodejs/releases/download/{version}/rules_nodejs-{version}.tar.gz".format(
+#             version = rules_nodejs_version,
+#         ),
+#     ],
+# )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+# load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
-yarn_install(
-    name = "npm",
-    package_json = "//3rdparty/typescript:package.json",
-    yarn_lock = "//3rdparty/typescript:yarn.lock",
-)
+# yarn_install(
+#     name = "npm",
+#     package_json = "//3rdparty/typescript:package.json",
+#     yarn_lock = "//3rdparty/typescript:yarn.lock",
+# )
 
-load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+# load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
-install_bazel_dependencies()
+# install_bazel_dependencies()
 
 ########### DOCKER SUPPORT ###########
 

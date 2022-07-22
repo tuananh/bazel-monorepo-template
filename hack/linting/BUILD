@@ -6,7 +6,7 @@ package(default_visibility = ["//visibility:public"])
 #     name = "python",
 #     config = ":configuration/pyproject.toml",
 #     config_option = "--config",
-#     executable = "//tools/linting/python/formatter:main",
+#     executable = "//hack/linting/python/formatter:main",
 # )
 
 linter(
