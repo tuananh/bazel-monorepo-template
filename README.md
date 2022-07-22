@@ -56,18 +56,17 @@ gazelle(
 - [x] Golang
 - [ ] Python
 - [ ] JavaScript/TypeScript
-- [x] Building container image
+- [x] Building container image for each of the service
 
 ## Build
 
 ```shell
-make build
-```
+# build go & java service container image
+make go-image
+make java-image
 
-## Test
-
-```shell
-make test
+# show help
+make help
 ```
 
 ## Contributing

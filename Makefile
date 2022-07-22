@@ -10,12 +10,12 @@ help: # Display help
 clean: ## doing bazel clean
 	$(BAZEL) clean --expunge
 
-.PHONY: build-go
-build-go: ## build //go
+.PHONY: go-image
+go-image: ## build //go
 	$(BAZEL) build //go:image
 
-.PHONY: build-java
-build-java: ## build //java
+.PHONY: java-image
+java-image: ## build //java
 	$(BAZEL) build //java:image --java_runtime_version=remotejdk_11
 
 .PHONY: ensure-go-dep
