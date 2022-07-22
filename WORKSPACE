@@ -129,11 +129,11 @@ scala_deps()
 
 # PYTHON SUPPORT
 
-rules_python_version = "0.10.2"
+rules_python_version = "0.7.0"
 
 http_archive(
     name = "rules_python",
-    sha256 = "a3a6e99f497be089f81ec082882e40246bfd435f52f4e82f37e89449b04573f6",
+    sha256 = "15f84594af9da06750ceb878abbf129241421e3abbd6e36893041188db67f2fb",
     strip_prefix = "rules_python-{}".format(rules_python_version),
     url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/{}.tar.gz".format(rules_python_version),
 )

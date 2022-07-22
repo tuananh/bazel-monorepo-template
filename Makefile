@@ -11,12 +11,12 @@ clean: ## doing bazel clean
 	$(BAZEL) clean --expunge
 
 .PHONY: build
-build: ensure-go-dep ensure-java-dep ## build everything
+build: ## build everything
 	$(BAZEL) build //...
 
 .PHONY: ensure-go-dep
 ensure-go-dep: ## update go dependencies
-	$(BAZEL) run //:gazelle -- update-repos -from_file=go.mod -to_macro=deps.bzl%go_dependencies
+	$(BAZEL) run //:gazelle-update-repos
 
 .PHONY: ensure-java-dep
 ensure-java-dep: ## update jvm dependencies
