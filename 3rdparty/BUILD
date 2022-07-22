@@ -4,9 +4,9 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 # Update dependencies with:
 # bazel run //3rdparty:requirements.update
 
-compile_pip_requirements(
-    name = "requirements",
-    extra_args = [
-        "--allow-unsafe",
-    ],
-)
+# compile_pip_requirements(
+#     name = "requirements",
+#     extra_args = [
+#         "--allow-unsafe",
+#     ],
+# )
