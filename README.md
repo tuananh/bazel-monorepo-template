@@ -1,5 +1,7 @@
 # Bazel Monorepo Template
 
+
+🚨🚨🚨 Still very much WIP. Part of it is working but not everything. 🚨🚨🚨
 ## Goals
 
 - Production-ready monorepo template with
