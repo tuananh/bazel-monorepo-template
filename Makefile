@@ -10,9 +10,13 @@ help: # Display help
 clean: ## doing bazel clean
 	$(BAZEL) clean --expunge
 
-.PHONY: build
-build: ## build everything
-	$(BAZEL) build //...
+.PHONY: build-go
+build-go: ## build //go
+	$(BAZEL) build //go:image
+
+.PHONY: build-java
+build-java: ## build //java
+	$(BAZEL) build //java:image
 
 .PHONY: ensure-go-dep
 ensure-go-dep: ## update go dependencies
