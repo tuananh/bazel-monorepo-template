@@ -1,5 +1,5 @@
 # remote cache
-build --remote_cache=http://localhost:9090
+# build --remote_cache=http://localhost:9090
 
 # workaround for java_image require cpp toolchain
 build --incompatible_use_cc_configure_from_rules_cc
