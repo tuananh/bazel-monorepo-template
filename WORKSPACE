@@ -1,4 +1,4 @@
-workspace(name = "finx-monorepo-example1")
+workspace(name = "bazel-monorepo-example")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -75,7 +75,7 @@ maven_install(
         "org.springframework:spring-webmvc:5.1.5.RELEASE",
     ],
     fetch_sources = True,  # Fetch source jars. Defaults to False.
-    maven_install_json = "@finx-monorepo-example1//3rdparty:maven_install.json",
+    maven_install_json = "@bazel-monorepo-example//3rdparty:maven_install.json",
     repositories = [
         "https://repo1.maven.org/maven2",
         "https://maven.google.com",
@@ -127,24 +127,61 @@ build_external_workspace(name = "3rdparty_jvm")
 
 scala_deps()
 
-# PYTHON SUPPORT
+########### PYTHON SUPPORT ###########
 
-rules_python_version = "0.7.0"
+rules_python_version = "0.9.0"
 
 http_archive(
     name = "rules_python",
-    sha256 = "15f84594af9da06750ceb878abbf129241421e3abbd6e36893041188db67f2fb",
+    sha256 = "5fa3c738d33acca3b97622a13a741129f67ef43f5fdfcec63b29374cc0574c29",
     strip_prefix = "rules_python-{}".format(rules_python_version),
     url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/{}.tar.gz".format(rules_python_version),
 )
 
-# load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+python_register_toolchains(
+    name = "python3_9",
+    python_version = "3.9",
+)
 
-# python_register_toolchains(
-#     name = "python3_9",
-#     python_version = "3.9",
+load("@python3_9//:defs.bzl", python_interpreter = "interpreter")
+load("@rules_python//python:pip.bzl", "pip_install")
+
+pip_install(
+    name = "py_deps",
+    python_interpreter_target = python_interpreter,
+    requirements = "//3rdparty:requirements.txt",
+)
+
+# # MYPY SUPPORT
+# mypy_integration_version = "0.2.0"  # Latest @ 26th June 2021
+
+# http_archive(
+#     name = "mypy_integration",
+#     sha256 = "621df076709dc72809add1f5fe187b213fee5f9b92e39eb33851ab13487bd67d",
+#     strip_prefix = "bazel-mypy-integration-{version}".format(version = mypy_integration_version),
+#     urls = [
+#         "https://github.com/thundergolfer/bazel-mypy-integration/archive/refs/tags/{version}.tar.gz".format(version = mypy_integration_version),
+#     ],
 # )
 
+# load(
+#     "@mypy_integration//repositories:repositories.bzl",
+#     mypy_integration_repositories = "repositories",
+# )
+
+# mypy_integration_repositories()
+
+# load("@mypy_integration//:config.bzl", "mypy_configuration")
+
+# mypy_configuration("//tools/typing:mypy.ini")
+
+# load("@mypy_integration//repositories:deps.bzl", mypy_integration_deps = "deps")
+
+# mypy_integration_deps(
+#     "//tools/typing:mypy_version.txt",
+#     python_interpreter_target = python_interpreter,
+# )
 
 ########### TYPESCRIPT / NODEJS SUPPORT ###########
 
@@ -174,12 +211,11 @@ http_archive(
 
 ########### DOCKER SUPPORT ###########
 
-# lock at this version because the latest 0.24.0 (as of June 10 2022) breaks rules_docker
-rules_docker_version = "0.22.0"
+rules_docker_version = "0.24.0"
 
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "59536e6ae64359b716ba9c46c39183403b01eabfbd57578e84398b4829ca499a",
+    sha256 = "27d53c1d646fc9537a70427ad7b034734d08a9c38924cc6357cc973fed300820",
     strip_prefix = "rules_docker-{}".format(rules_docker_version),
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v{0}/rules_docker-v{0}.tar.gz".format(rules_docker_version)],
 )
@@ -195,6 +231,10 @@ _java_image_repos()
 load("@io_bazel_rules_docker//go:image.bzl", _go_image_repos = "repositories")
 
 _go_image_repos()
+
+load("@io_bazel_rules_docker//python3:image.bzl", _py_image_repos = "repositories")
+
+_py_image_repos()
 
 # buildifier BUILD file linter
 http_archive(

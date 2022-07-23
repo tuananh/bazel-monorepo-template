@@ -8,7 +8,7 @@ help: # Display help
 
 .PHONY: clean
 clean: ## doing bazel clean
-	$(BAZEL) clean --expunge
+	$(BAZEL) clean --expunge --async
 
 .PHONY: go-image
 go-image: ## build //go
@@ -18,6 +18,10 @@ go-image: ## build //go
 java-image: ## build //java
 	$(BAZEL) build //java:image --java_runtime_version=remotejdk_11
 
+.PHONY: python
+python: ## build //python
+	$(BAZEL) build //python
+
 .PHONY: ensure-go-dep
 ensure-go-dep: ## update go dependencies
 	$(BAZEL) run //:gazelle-update-repos
@@ -26,12 +30,16 @@ ensure-go-dep: ## update go dependencies
 ensure-java-dep: ## update jvm dependencies
 	./hack/update_jvm_dependencies.sh
 
+.PHONY: ensure-python-dep
+ensure-python-dep: ## update python dependencies
+	echo "TODO"
+
 .PHONY: lint
 lint: ## linting and shit
 	./hack/linting/lint.sh
 
-.PHONY: start-cache-dev
-start-cache-dev: ## start a bazel cache server
+.PHONY: start-cache-server
+start-cache-server: ## start a bazel cache server using buchgr/bazel-remote-cache
 	mkdir -p /tmp/bazel-remote-cache/
 	docker run -u 1000:1000 \
 		-v /tmp/bazel-remote-cache/:/data \

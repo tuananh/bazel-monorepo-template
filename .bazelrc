@@ -6,7 +6,7 @@ build --incompatible_use_cc_configure_from_rules_cc
 build --toolchain_resolution_debug=@bazel_tools//tools/cpp:toolchain_type
 
 # python path
-build --python_path="/usr/local/bin/python3"
+build --python_path="/usr/bin/python3"
 
 # scala
 build --strategy=Scalac=worker
@@ -24,4 +24,4 @@ test --test_output=all
 build --worker_sandboxing
 
 # Local Disk Cache - https://docs.bazel.build/versions/master/remote-caching.html#disk-cache
-build --disk_cache=/tmp/finx-monorepo-example1-disk-cache/
+build --disk_cache=/tmp/bazel-monorepo-example-cache
