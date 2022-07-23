@@ -32,7 +32,7 @@ ensure-java-dep: ## update jvm dependencies
 
 .PHONY: ensure-python-dep
 ensure-python-dep: ## update python dependencies
-	echo "TODO"
+	$(BAZEL) run //3rdparty:requirements.update
 
 .PHONY: lint
 lint: ## linting and shit
