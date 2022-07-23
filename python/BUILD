@@ -13,8 +13,8 @@ py_binary(
 py_image(
     name = "image",
     srcs = ["main.py"],
+    main = "main.py",
     deps = [
         requirement("Flask"),
     ],
-    main = "main.py",
 )

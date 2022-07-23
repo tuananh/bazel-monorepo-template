@@ -7,7 +7,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/tuananh/bazel-monorepo-template/go",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_gin_gonic_gin//:go_default_library"],
+    deps = ["@com_github_gin_gonic_gin//:gin"],
 )
 
 go_binary(
@@ -27,8 +27,8 @@ go_image(
 
 container_push(
     name = "push_image",
-    image = ":image",
     format = "OCI",
+    image = ":image",
     registry = "docker.io",
     repository = "tuananhorg/go_example",
     tag = "dev",

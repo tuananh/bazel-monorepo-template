@@ -10,6 +10,10 @@ help: # Display help
 clean: ## doing bazel clean
 	$(BAZEL) clean --expunge --async
 
+.PHONY: gazelle
+gazelle:
+	$(BAZEL) run //:gazelle
+	
 .PHONY: go-image
 go-image: ## build //go
 	$(BAZEL) build //go:image

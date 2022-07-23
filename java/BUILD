@@ -9,8 +9,8 @@ java_image(
 
 container_push(
     name = "push_image",
-    image = ":image",
     format = "OCI",
+    image = ":image",
     registry = "docker.io",
     repository = "tuananhorg/java_example",
     tag = "dev",

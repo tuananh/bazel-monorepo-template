@@ -129,29 +129,29 @@ scala_deps()
 
 ########### PYTHON SUPPORT ###########
 
-rules_python_version = "0.9.0"
+rules_python_version = "0.10.2"
 
 http_archive(
     name = "rules_python",
-    sha256 = "5fa3c738d33acca3b97622a13a741129f67ef43f5fdfcec63b29374cc0574c29",
+    sha256 = "a3a6e99f497be089f81ec082882e40246bfd435f52f4e82f37e89449b04573f6",
     strip_prefix = "rules_python-{}".format(rules_python_version),
     url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/{}.tar.gz".format(rules_python_version),
 )
 
-load("@rules_python//python:repositories.bzl", "python_register_toolchains")
-python_register_toolchains(
-    name = "python3_10",
-    python_version = "3.10",
-)
+# load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+# python_register_toolchains(
+#     name = "python3_10",
+#     python_version = "3.10",
+# )
 
-load("@python3_10//:defs.bzl", python_interpreter = "interpreter")
-load("@rules_python//python:pip.bzl", "pip_install")
+# load("@python3_10//:defs.bzl", python_interpreter = "interpreter")
+# load("@rules_python//python:pip.bzl", "pip_install")
 
-pip_install(
-    name = "py_deps",
-    python_interpreter_target = python_interpreter,
-    requirements = "//3rdparty:requirements.txt",
-)
+# pip_install(
+#     name = "py_deps",
+#     python_interpreter_target = python_interpreter,
+#     requirements = "//3rdparty:requirements.txt",
+# )
 
 # # MYPY SUPPORT
 # mypy_integration_version = "0.2.0"  # Latest @ 26th June 2021
